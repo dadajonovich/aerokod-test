@@ -2,7 +2,7 @@ import { Options } from './components/Options';
 
 function App() {
   return (
-    <main className="min-h-screen	px-[70px] pb-[70px] pt-[32px]">
+    <main className="min-h-screen	px-[60px] pt-[38px]">
       <Options />
     </main>
   );
