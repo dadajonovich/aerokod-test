@@ -1,4 +1,5 @@
 import { Select } from './Select/Select';
+import { Tabs } from './Tabs/Tabs';
 
 export function Options() {
   return (
@@ -6,8 +7,9 @@ export function Options() {
       <h2 className="font-extatica text-6xl font-medium uppercase">
         Планировки
       </h2>
-      <div>
+      <div className="flex gap-x-5">
         <Select />
+        <Tabs />
       </div>
     </>
   );

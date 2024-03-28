@@ -3,7 +3,8 @@ export function Select() {
     <label className="mt-14 block font-evolventa">
       <span className="text-lg	font-normal text-label">Проект</span>
       <div className="relative mt-2">
-        <select className="w-full cursor-pointer appearance-none	rounded-[10px] border border-black px-6 py-3 text-[19px]">
+        {/* @apply rounded-[10px] border border-black bg-transparent px-6 py-3 text-[19px]; */}
+        <select className="options w-full cursor-pointer	appearance-none">
           <option disabled selected>
             Все
           </option>
