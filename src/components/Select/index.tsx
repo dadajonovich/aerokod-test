@@ -1,10 +1,9 @@
 export function Select() {
   return (
-    <label className="mt-14 block font-evolventa">
+    <div className="font-evolventa">
       <span className="text-lg	font-normal text-label">Проект</span>
       <div className="relative mt-2">
-        {/* @apply rounded-[10px] border border-black bg-transparent px-6 py-3 text-[19px]; */}
-        <select className="options w-full cursor-pointer	appearance-none">
+        <select className="options w-min cursor-pointer	appearance-none">
           <option disabled selected>
             Все
           </option>
@@ -25,6 +24,6 @@ export function Select() {
           <path d="M3 5L7.5 9.5L12 5" stroke="#040306" stroke-width="1.5" />
         </svg>
       </div>
-    </label>
+    </div>
   );
 }

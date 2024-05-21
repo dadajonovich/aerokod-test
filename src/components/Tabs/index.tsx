@@ -2,7 +2,7 @@ const tabs = ['Ст', '1к', '2к', '3к', '4к'];
 
 export function Tabs() {
   return (
-    <label className="mt-14 block font-evolventa">
+    <div className="font-evolventa">
       <span className="text-lg	font-normal text-label">
         Укажите количество комнат
       </span>
@@ -13,6 +13,6 @@ export function Tabs() {
           </button>
         ))}
       </div>
-    </label>
+    </div>
   );
 }

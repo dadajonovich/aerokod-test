@@ -40,18 +40,4 @@
   }
 }
 
-@layer components {
-  .options {
-    @apply rounded-[10px] border border-black bg-transparent px-6 py-3 text-[19px];
-  }
-}
-
-@layer utilities {
-  .array {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    pointer-events: none;
-  }
-}
+@import 'assets/custom';
