@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { formatPrice } from '../../utils/formatPrice';
+import { useInputFormat } from '../../hooks/useInputFormat';
 
 type RangeProps = {
   title: string;
@@ -6,6 +8,9 @@ type RangeProps = {
 };
 
 export function Range(props: RangeProps) {
+  const minProps = useInputFormat(666666);
+  const maxProps = useInputFormat(777777);
+
   const { title, type } = props;
   return (
     <div className="font-evolventa">
@@ -14,12 +19,14 @@ export function Range(props: RangeProps) {
         <div className="flex items-center justify-between	 gap-12">
           <div className="field">
             <span>от</span>
-            <input value={formatPrice(2800000)} />
+            <input {...minProps} />
+            &#8381;
           </div>
           <hr className="w-[20px] border" />
           <div className="field">
             <span>до</span>
-            <input value={formatPrice(10730000)} />
+            <input {...maxProps} />
+            &#8381;
           </div>
         </div>
         <div className="slider">

@@ -12,7 +12,7 @@ export function Options() {
         <Select />
         <Tabs />
         <Range {...{ title: 'Стоимость', type: 'price' }} />
-        <Range {...{ title: 'Задайте площадь, м²', type: 'square' }} />
+        {/* <Range {...{ title: 'Задайте площадь, м²', type: 'square' }} /> */}
       </div>
     </>
   );
