@@ -10,7 +10,7 @@ export function Range(props: RangeProps) {
   return (
     <div className="font-evolventa">
       <span className="text-lg	font-normal text-label">{title}</span>
-      <div className="options mt-2">
+      <div className="border-custom options mt-2">
         <div className="flex items-center justify-between	 gap-12">
           <div className="field">
             <span>от</span>
@@ -22,7 +22,10 @@ export function Range(props: RangeProps) {
             <input value={formatPrice(10730000)} />
           </div>
         </div>
-        {/* <div className="range-input">
+        <div className="slider">
+          <div className="progress"></div>
+        </div>
+        <div className="range-input">
           <input
             type="range"
             className="range-min"
@@ -39,7 +42,7 @@ export function Range(props: RangeProps) {
             value="7500"
             step="100"
           />
-        </div> */}
+        </div>
       </div>
     </div>
   );

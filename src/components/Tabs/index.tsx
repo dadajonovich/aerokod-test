@@ -8,7 +8,7 @@ export function Tabs() {
       </span>
       <div className="relative mt-2 flex gap-x-5">
         {tabs.map((button, index) => (
-          <button key={index} className="options">
+          <button key={index} className="border-custom options">
             {button}
           </button>
         ))}

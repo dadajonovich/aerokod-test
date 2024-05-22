@@ -3,7 +3,7 @@ export function Select() {
     <div className="font-evolventa">
       <span className="text-lg	font-normal text-label">Проект</span>
       <div className="relative mt-2">
-        <select className="options w-min cursor-pointer	appearance-none">
+        <select className="border-custom options w-min cursor-pointer appearance-none	border">
           <option disabled selected>
             Все
           </option>
