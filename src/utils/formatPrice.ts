@@ -4,5 +4,5 @@ export const formatPrice = (price: number) => {
   //   currency: 'RUB',
   // }).format(price);
   // return price.toLocaleString('ru-RU') + ' \u20BD';
-  return price.toLocaleString('ru-RU');
+  return price.toLocaleString();
 };

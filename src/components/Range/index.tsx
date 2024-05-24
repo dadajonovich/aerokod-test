@@ -8,8 +8,8 @@ type RangeProps = {
 };
 
 export function Range(props: RangeProps) {
-  const minProps = useInputFormat(666666);
-  const maxProps = useInputFormat(777777);
+  const minProps = useInputFormat(11567);
+  const maxProps = useInputFormat(33654);
 
   const { title, type } = props;
   return (

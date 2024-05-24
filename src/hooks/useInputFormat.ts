@@ -6,14 +6,17 @@ import { useEventListener } from './useEventListener';
 export function useInputFormat(defaultNumber: number) {
   const defaultValue = formatPrice(defaultNumber);
 
-  const [prev, setPrev] = useState<number>(calcSpaces(defaultValue));
+  // const [prev, setPrev] = useState<number>(calcSpaces(defaultValue));
+  const [prev, setPrev] = useState<number>(0);
+  const [selectPos, setSelectPos] = useState<number>(0);
+
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
   const ref = useRef<HTMLInputElement>(null);
 
   useEventListener(
     document,
-    'selectionchange',
+    'select',
     () => {
       if (!ref.current) return;
       if (!isFocus) return;
@@ -28,7 +31,7 @@ export function useInputFormat(defaultNumber: number) {
       const selectedValue = isEmpy ? '' : target.value.slice(start, end);
 
       const selectedSpaces = calcSpaces(selectedValue);
-
+      console.log(`${spaces} - ${selectedSpaces} = ${spaces - selectedSpaces}`);
       setPrev(spaces - selectedSpaces);
     },
     [ref, isFocus],
@@ -41,9 +44,19 @@ export function useInputFormat(defaultNumber: number) {
   useEventListener(ref, 'focus', () => setIsFocus(true), []);
   useEventListener(ref, 'blur', () => setIsFocus(false), []);
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onClick: ChangeEventHandler<HTMLInputElement> = (e) => {
     const target = e.target;
-    const selectPos = target.selectionEnd || 0;
+    setSelectPos(target.selectionEnd || 0);
+  };
+
+  const onInput: ChangeEventHandler<HTMLInputElement> = (e) => {
+    // Инпут
+    const target = e.target;
+
+    // Текущая позиция каретки
+    // const selectPos = target.selectionEnd || 0;
+
+    // Значение без пробелов
     const valueWithoutSpaces = Number(target.value.replace(/\s+/g, ''));
 
     const format = formatPrice(valueWithoutSpaces);
@@ -58,5 +71,5 @@ export function useInputFormat(defaultNumber: number) {
     target.setSelectionRange(currentSelect, currentSelect);
   };
 
-  return { ref, onInput: onChange, defaultValue } as const;
+  return { ref, onInput, onClick, defaultValue } as const;
 }
