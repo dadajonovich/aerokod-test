@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import { formatPrice } from '../../utils/formatPrice';
-import { useInputFormat } from '../../hooks/useInputFormat';
+import { calcSpaces } from '../../utils/calcSpaces';
 
 type RangeProps = {
   title: string;
@@ -8,8 +8,37 @@ type RangeProps = {
 };
 
 export function Range(props: RangeProps) {
-  const minProps = useInputFormat(11567);
-  const maxProps = useInputFormat(33654);
+  const [min, setMin] = useState<string>(formatPrice(11567));
+  const minRef = useRef<HTMLInputElement>(null);
+
+  const handleInput: ChangeEventHandler<HTMLInputElement> = (e) => {
+    console.log('handleInput');
+    const target = e.target;
+    const value = target.value;
+
+    // Количество пробелов у предыдущего значения
+    const prevSpaces = calcSpaces(min);
+
+    // Подготовка значения под форматирование
+    const valueWithoutSpaces = Number(value.replace(/\s+/g, ''));
+    // Форматирование
+    const formatedPrice = formatPrice(valueWithoutSpaces);
+    // Получение количества пробелов
+    const currentSpaces = calcSpaces(formatedPrice);
+    // Находим разницу в пробелах
+    const difSpaces = currentSpaces - prevSpaces;
+    const selectionStart = (target.selectionStart || 0) + difSpaces;
+
+    target.value = formatedPrice;
+
+    target.setSelectionRange(selectionStart, selectionStart);
+    setMin(formatedPrice);
+  };
+
+  useEffect(() => {
+    if (!minRef.current) return;
+    minRef.current.style.width = min.length + 'ch';
+  }, [min]);
 
   const { title, type } = props;
   return (
@@ -19,13 +48,13 @@ export function Range(props: RangeProps) {
         <div className="flex items-center justify-between	 gap-12">
           <div className="field">
             <span>от</span>
-            <input {...minProps} />
+            <input ref={minRef} onChange={handleInput} defaultValue={min} />
             &#8381;
           </div>
           <hr className="w-[20px] border" />
           <div className="field">
             <span>до</span>
-            <input {...maxProps} />
+            <input onChange={handleInput} />
             &#8381;
           </div>
         </div>
