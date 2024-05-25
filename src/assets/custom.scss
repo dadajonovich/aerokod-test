@@ -24,22 +24,20 @@
 
     input {
       outline: none;
-      appearance: none;
-      width: 100%;
     }
   }
 
   // Price range
 
   .slider {
-    height: 1px;
+    height: 5px;
     border-radius: 5px;
     background: #ddd;
     position: relative;
   }
 
   .slider .progress {
-    height: 1px;
+    height: 5px;
     left: 25%;
     right: 25%;
     position: absolute;
@@ -58,6 +56,6 @@
     width: 100%;
     background: none;
     pointer-events: none;
-    // -webkit-appearance: none;
+    -webkit-appearance: none;
   }
 }
