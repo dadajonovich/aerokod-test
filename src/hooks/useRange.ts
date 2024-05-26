@@ -1,16 +1,48 @@
-import { useRef } from 'react';
+import { Dispatch, RefObject, useRef } from 'react';
+import { getFloatFromValuePrice } from '../utils/getFloatFromValuePrice';
+import { formatPrice } from '../utils/formatPrice';
 
-export function useRange() {
+export function useRange(
+  min: string,
+  max: string,
+  setMin: Dispatch<React.SetStateAction<string>>,
+  setMax: Dispatch<React.SetStateAction<string>>,
+  progress: RefObject<HTMLDivElement>,
+) {
   const ref = useRef<HTMLDivElement>(null);
 
-  if (!ref.current) return;
+  const priceGap = 1000;
 
-  ref.current.childNodes.forEach((element) => {
-    element.addEventListener('input', (event) => {
-      let minVal = parseInt(priceInput[0].value);
-      let maxVal = parseInt(priceInput[1].value);
-    });
-  });
+  if (progress.current && ref.current && ref.current.childNodes.length > 0) {
+    const ranges = ref.current.childNodes as NodeListOf<HTMLInputElement>;
+    ranges.forEach((range) =>
+      range.addEventListener('input', (event) => {
+        let minVal = getFloatFromValuePrice(min);
+        let maxVal = getFloatFromValuePrice(max);
+
+        if (maxVal - minVal < priceGap) {
+          if (
+            event.target instanceof Element &&
+            event.target.className === 'range-min'
+          ) {
+            const priceValue = maxVal - priceGap;
+            ranges[0].value = String(priceValue);
+            setMin(formatPrice(priceValue));
+          } else {
+            const priceValue = minVal - priceGap;
+            ranges[0].value = String(priceValue);
+            setMax(formatPrice(priceValue));
+          }
+        } else {
+          ranges[0].value = String(minVal);
+          ranges[1].value = String(maxVal);
+          progress.current.style.left = (minVal / ranges[0].max) * 100 + '%';
+          progress.current.style.right =
+            100 - (maxVal / ranges[1].max) * 100 + '%';
+        }
+      }),
+    );
+  }
 
   return { ref } as const;
 }

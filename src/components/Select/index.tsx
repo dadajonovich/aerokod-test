@@ -4,7 +4,7 @@ export function Select() {
       <span className="text-lg	font-normal text-label">Проект</span>
       <div className="relative mt-2">
         <select className="border-custom options w-min cursor-pointer appearance-none	border">
-          <option disabled selected>
+          <option disabled defaultValue="all">
             Все
           </option>
           <option>Star Wars</option>

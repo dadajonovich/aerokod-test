@@ -1,7 +1,8 @@
 import { formatPrice } from '../../utils/formatPrice';
 import { useInputPrice } from '../../hooks/useInputPrice';
 import { useRange } from '../../hooks/useRange';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { getFloatFromValuePrice } from '../../utils/getFloatFromValuePrice';
 
 type RangeProps = {
   title: string;
@@ -12,12 +13,13 @@ export function Range(props: RangeProps) {
   const { title, type } = props;
 
   const [min, setMin] = useState<string>(formatPrice(11567));
-  const [max, setMax] = useState<string>(formatPrice(11567));
+  const [max, setMax] = useState<string>(formatPrice(77666));
+  const progressRef = useRef<HTMLDivElement>(null);
 
   const minProps = useInputPrice(min, setMin);
   const maxProps = useInputPrice(max, setMax);
-  const rangeProps = useRange();
-  console.log(rangeProps);
+  const rangeInputProps = useRange(min, max, setMin, setMax, progressRef);
+
   return (
     <div className="font-evolventa">
       <span className="text-lg	font-normal text-label">{title}</span>
@@ -36,11 +38,25 @@ export function Range(props: RangeProps) {
           </div>
         </div>
         <div className="slider">
-          <div className="progress"></div>
+          <div ref={progressRef} className="progress"></div>
         </div>
-        <div {...rangeProps} className="range-input">
-          <input type="range" min="0" max="10000" value="2500" step="100" />
-          <input type="range" min="0" max="10000" value="7500" step="100" />
+        <div {...rangeInputProps} className="range-input">
+          <input
+            type="range"
+            className="range-min"
+            min="0"
+            max="100000"
+            value={getFloatFromValuePrice(min)}
+            step="100"
+          />
+          <input
+            type="range"
+            className="range-max"
+            min="0"
+            max="100000"
+            value={getFloatFromValuePrice(max)}
+            step="100"
+          />
         </div>
       </div>
     </div>

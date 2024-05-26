@@ -22,7 +22,7 @@
     align-items: center;
     gap: 0.25rem;
 
-    input {
+    && input {
       outline: none;
     }
   }
@@ -57,5 +57,24 @@
     background: none;
     pointer-events: none;
     -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    height: 17px;
+    width: 17px;
+    border-radius: 50%;
+    pointer-events: auto;
+    -webkit-animation: none;
+    background: red;
+  }
+  input[type='range']::-moz-slider-thumb {
+    height: 17px;
+    width: 17px;
+    border: none;
+    border-radius: 50%;
+    pointer-events: auto;
+    -moz-animation: none;
+    background: red;
   }
 }

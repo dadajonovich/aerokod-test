@@ -1,6 +1,7 @@
 import { ChangeEventHandler, Dispatch, useEffect, useRef } from 'react';
 import { formatPrice } from '../utils/formatPrice';
 import { calcSpaces } from '../utils/calcSpaces';
+import { getFloatFromValuePrice } from '../utils/getFloatFromValuePrice';
 
 export function useInputPrice(
   price: string,
@@ -8,13 +9,13 @@ export function useInputPrice(
 ) {
   const ref = useRef<HTMLInputElement>(null);
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onInput: ChangeEventHandler<HTMLInputElement> = (e) => {
     const target = e.target;
     const value = target.value;
 
     const prevSpaces = calcSpaces(price);
 
-    const valueWithoutSpaces = Number(value.replace(/\s+/g, ''));
+    const valueWithoutSpaces = getFloatFromValuePrice(value);
     const formatedPrice = formatPrice(valueWithoutSpaces);
     const currentSpaces = calcSpaces(formatedPrice);
     const difSpaces = currentSpaces - prevSpaces;
@@ -31,5 +32,5 @@ export function useInputPrice(
     ref.current.style.width = price.length + 'ch';
   }, [price]);
 
-  return { ref, onChange } as const;
+  return { ref, onInput } as const;
 }
