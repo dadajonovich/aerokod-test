@@ -1,5 +1,4 @@
-import { formatPrice } from '../../utils/formatPrice';
-import { useInputPrice } from '../../hooks/useInputPrice';
+import { IMaskInput } from 'react-imask';
 import { useRange } from '../../hooks/useRange';
 import { useRef, useState } from 'react';
 import { getFloatFromValuePrice } from '../../utils/getFloatFromValuePrice';
@@ -17,8 +16,6 @@ export function Range(props: RangeProps) {
   const [max, setMax] = useState<string>(toFormat(77666));
   const progressRef = useRef<HTMLDivElement>(null);
 
-  const minProps = useInputPrice(min, setMin);
-  const maxProps = useInputPrice(max, setMax);
   const rangeInputProps = useRange(min, max, setMin, setMax, progressRef);
 
   return (
@@ -28,13 +25,25 @@ export function Range(props: RangeProps) {
         <div className="flex items-center justify-between	 gap-12">
           <div className="field">
             <span>от</span>
-            <input {...minProps} value={min} />
+            <IMaskInput
+              mask={Number}
+              style={{ width: min.length + 'ch' }}
+              onAccept={(value) => setMin(value)}
+              thousandsSeparator=" "
+              value={min}
+            />
             &#8381;
           </div>
           <hr className="w-[20px] border" />
           <div className="field">
             <span>до</span>
-            <input {...maxProps} value={max} />
+            <IMaskInput
+              mask={Number}
+              style={{ width: max.length + 'ch' }}
+              onAccept={(value) => setMax(value)}
+              thousandsSeparator=" "
+              value={max}
+            />
             &#8381;
           </div>
         </div>
