@@ -7,13 +7,14 @@ import { getFloatFromValuePrice } from '../../utils/getFloatFromValuePrice';
 type RangeProps = {
   title: string;
   type: 'price' | 'square';
+  toFormat: (value: number) => string;
 };
 
 export function Range(props: RangeProps) {
-  const { title, type } = props;
+  const { title, type, toFormat } = props;
 
-  const [min, setMin] = useState<string>(formatPrice(11567));
-  const [max, setMax] = useState<string>(formatPrice(77666));
+  const [min, setMin] = useState<string>(toFormat(11567));
+  const [max, setMax] = useState<string>(toFormat(77666));
   const progressRef = useRef<HTMLDivElement>(null);
 
   const minProps = useInputPrice(min, setMin);
@@ -27,13 +28,13 @@ export function Range(props: RangeProps) {
         <div className="flex items-center justify-between	 gap-12">
           <div className="field">
             <span>от</span>
-            <input {...minProps} defaultValue={min} />
+            <input {...minProps} value={min} />
             &#8381;
           </div>
           <hr className="w-[20px] border" />
           <div className="field">
             <span>до</span>
-            <input {...maxProps} defaultValue={max} />
+            <input {...maxProps} value={max} />
             &#8381;
           </div>
         </div>

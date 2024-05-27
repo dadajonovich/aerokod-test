@@ -17,8 +17,8 @@ export function useRange(
     const ranges = ref.current.childNodes as NodeListOf<HTMLInputElement>;
     ranges.forEach((range) =>
       range.addEventListener('input', (event) => {
-        let minVal = getFloatFromValuePrice(min);
-        let maxVal = getFloatFromValuePrice(max);
+        const minVal = getFloatFromValuePrice(min);
+        const maxVal = getFloatFromValuePrice(max);
 
         if (maxVal - minVal < priceGap) {
           if (
@@ -26,16 +26,14 @@ export function useRange(
             event.target.className === 'range-min'
           ) {
             const priceValue = maxVal - priceGap;
-            ranges[0].value = String(priceValue);
             setMin(formatPrice(priceValue));
           } else {
             const priceValue = minVal - priceGap;
-            ranges[0].value = String(priceValue);
             setMax(formatPrice(priceValue));
           }
         } else {
-          ranges[0].value = String(minVal);
-          ranges[1].value = String(maxVal);
+          setMin(formatPrice(minVal));
+          setMax(formatPrice(maxVal));
           progress.current.style.left = (minVal / ranges[0].max) * 100 + '%';
           progress.current.style.right =
             100 - (maxVal / ranges[1].max) * 100 + '%';

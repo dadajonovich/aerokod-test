@@ -22,12 +22,10 @@
     align-items: center;
     gap: 0.25rem;
 
-    && input {
+    & input {
       outline: none;
     }
   }
-
-  // Price range
 
   .slider {
     height: 5px;

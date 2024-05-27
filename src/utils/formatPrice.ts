@@ -1,8 +1,5 @@
 export const formatPrice = (price: number) => {
-  // return new Intl.NumberFormat('ru-RU', {
-  //   style: 'currency',
-  //   currency: 'RUB',
-  // }).format(price);
+  return new Intl.NumberFormat('ru-RU').format(price);
   // return price.toLocaleString('ru-RU') + ' \u20BD';
-  return price.toLocaleString();
+  // return price.toLocaleString('ru-RU');
 };
