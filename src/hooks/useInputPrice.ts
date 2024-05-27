@@ -18,12 +18,18 @@ export function useInputPrice(
     const valueWithoutSpaces = getFloatFromValuePrice(value);
     const formatedPrice = formatPrice(valueWithoutSpaces);
     const currentSpaces = calcSpaces(formatedPrice);
-    const difSpaces = currentSpaces - prevSpaces;
+    // const difSpaces = currentSpaces - prevSpaces;
+    const difSpaces =
+      currentSpaces < prevSpaces ? 0 : currentSpaces - prevSpaces;
+    console.log(`currentSpace - ${currentSpaces}, prevSpace - ${prevSpaces}`);
+
     const selectionStart = (target.selectionStart || 0) + difSpaces;
+    console.log(`${target.selectionStart} + ${difSpaces} = ${selectionStart}`);
 
     target.value = formatedPrice;
 
     target.setSelectionRange(selectionStart, selectionStart);
+
     setPrice(formatedPrice);
   };
 
