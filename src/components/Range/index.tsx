@@ -1,6 +1,6 @@
 import { IMaskInput } from 'react-imask';
 import { useRange } from '../../hooks/useRange';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getFloatFromValuePrice } from '../../utils/getFloatFromValuePrice';
 
 type RangeProps = {
@@ -16,7 +16,26 @@ export function Range(props: RangeProps) {
   const [max, setMax] = useState<string>(toFormat(77666));
   const progressRef = useRef<HTMLDivElement>(null);
 
-  const rangeInputProps = useRange(min, max, setMin, setMax, progressRef);
+  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMin(e.target.value);
+  };
+
+  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMax(e.target.value);
+  };
+
+  const updateProgress = () => {
+    if (progressRef.current) {
+      const minVal = getFloatFromValuePrice(min);
+      const maxVal = getFloatFromValuePrice(max);
+      progressRef.current.style.left = (minVal / 100000) * 100 + '%';
+      progressRef.current.style.right = 100 - (maxVal / 100000) * 100 + '%';
+    }
+  };
+
+  useEffect(() => {
+    updateProgress();
+  }, [min, max]);
 
   return (
     <div className="font-evolventa">
@@ -50,12 +69,13 @@ export function Range(props: RangeProps) {
         <div className="slider">
           <div ref={progressRef} className="progress"></div>
         </div>
-        <div {...rangeInputProps} className="range-input">
+        <div className="range-input">
           <input
             type="range"
             className="range-min"
             min="0"
             max="100000"
+            onChange={handleMinChange}
             value={getFloatFromValuePrice(min)}
             step="100"
           />
@@ -64,6 +84,7 @@ export function Range(props: RangeProps) {
             className="range-max"
             min="0"
             max="100000"
+            onChange={handleMaxChange}
             value={getFloatFromValuePrice(max)}
             step="100"
           />

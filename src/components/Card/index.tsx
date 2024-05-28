@@ -18,7 +18,7 @@ export function Card() {
           </div>
         </div>
         <svg
-          className="self-start	"
+          className="self-start"
           width="55"
           height="55"
           viewBox="0 0 55 55"

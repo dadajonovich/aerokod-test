@@ -55,7 +55,7 @@
     background: none;
     pointer-events: none;
     -webkit-appearance: none;
-    appearance: none;
+    -moz-appearance: none;
   }
 
   input[type='range']::-webkit-slider-thumb {
@@ -63,7 +63,7 @@
     width: 17px;
     border-radius: 50%;
     pointer-events: auto;
-    -webkit-animation: none;
+    -webkit-appearance: none;
     background: red;
   }
   input[type='range']::-moz-slider-thumb {
@@ -72,7 +72,7 @@
     border: none;
     border-radius: 50%;
     pointer-events: auto;
-    -moz-animation: none;
+    -moz-appearance: none;
     background: red;
   }
 }
