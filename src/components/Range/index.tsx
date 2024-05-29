@@ -9,6 +9,16 @@ type RangeProps = {
   toFormat: (value: number) => string;
 };
 
+const downLimit = (current: string, min: string) => {
+  if (getFloatFromValuePrice(current) < getFloatFromValuePrice(min)) return min;
+  return current;
+};
+
+const upLimit = (current: string, max: string) => {
+  if (getFloatFromValuePrice(current) > getFloatFromValuePrice(max)) return max;
+  return current;
+};
+
 export function Range(props: RangeProps) {
   const { title, type, toFormat } = props;
 
@@ -16,14 +26,22 @@ export function Range(props: RangeProps) {
   const [max, setMax] = useState<string>(toFormat(77666));
   const progressRef = useRef<HTMLDivElement>(null);
 
+  const setRawMin = (value: string) => {
+    const validValue = upLimit(value, max);
+    setMin(validValue);
+  };
+
+  const setRawMax = (value: string) => {
+    const validValue = downLimit(value, min);
+    setMax(validValue);
+  };
+
   const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (getFloatFromValuePrice(e.target.value) < getFloatFromValuePrice(max))
-      setMin(e.target.value);
+    setRawMin(e.target.value);
   };
 
   const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (getFloatFromValuePrice(e.target.value) > getFloatFromValuePrice(min))
-      setMax(e.target.value);
+    setRawMax(e.target.value);
   };
 
   const updateProgress = () => {
@@ -49,9 +67,7 @@ export function Range(props: RangeProps) {
             <IMaskInput
               mask={Number}
               style={{ width: min.length + 'ch' }}
-              onAccept={(value) => {
-                setMin(value);
-              }}
+              onAccept={setRawMin}
               thousandsSeparator=" "
               value={min}
             />
@@ -63,7 +79,7 @@ export function Range(props: RangeProps) {
             <IMaskInput
               mask={Number}
               style={{ width: max.length + 'ch' }}
-              onAccept={(value) => setMax(value)}
+              onAccept={setRawMax}
               thousandsSeparator=" "
               value={max}
             />
