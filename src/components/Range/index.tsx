@@ -67,9 +67,12 @@ export function Range(props: RangeProps) {
             <IMaskInput
               mask={Number}
               style={{ width: min.length + 'ch' }}
-              onAccept={setRawMin}
+              // onAccept={setRawMin}
+              onBlur={handleMinChange}
               thousandsSeparator=" "
               value={min}
+              min={0}
+              max={100000}
             />
             &#8381;
           </div>
@@ -79,9 +82,12 @@ export function Range(props: RangeProps) {
             <IMaskInput
               mask={Number}
               style={{ width: max.length + 'ch' }}
-              onAccept={setRawMax}
+              // onAccept={setRawMax}
+              onBlur={handleMaxChange}
               thousandsSeparator=" "
               value={max}
+              min={0}
+              max={100000}
             />
             &#8381;
           </div>
