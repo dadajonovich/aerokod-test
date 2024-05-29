@@ -17,11 +17,13 @@ export function Range(props: RangeProps) {
   const progressRef = useRef<HTMLDivElement>(null);
 
   const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMin(e.target.value);
+    if (getFloatFromValuePrice(e.target.value) < getFloatFromValuePrice(max))
+      setMin(e.target.value);
   };
 
   const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMax(e.target.value);
+    if (getFloatFromValuePrice(e.target.value) > getFloatFromValuePrice(min))
+      setMax(e.target.value);
   };
 
   const updateProgress = () => {
@@ -47,7 +49,9 @@ export function Range(props: RangeProps) {
             <IMaskInput
               mask={Number}
               style={{ width: min.length + 'ch' }}
-              onAccept={(value) => setMin(value)}
+              onAccept={(value) => {
+                setMin(value);
+              }}
               thousandsSeparator=" "
               value={min}
             />
