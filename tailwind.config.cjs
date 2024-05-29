@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       colors: {
         label: '#1E1F224C',
+        active: '#2495FE',
       },
     },
   },

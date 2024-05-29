@@ -1,3 +1,6 @@
+import Remove from '/remove.svg?react';
+// import Remove from '/remove.svg';
+
 type SearchInfoProps = {
   quantity: number;
 };
@@ -5,8 +8,10 @@ type SearchInfoProps = {
 export function SearchInfo({ quantity }: SearchInfoProps) {
   return (
     <div className="mt-12 flex">
-      <p className="grow text-center">Найдено {quantity} квартир</p>
-      <button className="flex items-center justify-between gap-3">
+      <p className="grow text-center font-evolventa text-lg font-normal">
+        Найдено {quantity} квартир
+      </p>
+      <button className="flex items-center justify-between gap-3 font-evolventa text-lg font-normal">
         <svg
           width="12"
           height="13"
@@ -22,7 +27,7 @@ export function SearchInfo({ quantity }: SearchInfoProps) {
             fill="#040306"
           />
         </svg>
-        Очистить все
+        Очистить всё
       </button>
     </div>
   );

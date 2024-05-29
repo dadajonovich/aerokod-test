@@ -4,11 +4,18 @@ import { SearchInfo } from './components/SearchInfo';
 
 function App() {
   return (
-    <main className="min-h-screen	px-[60px] pt-[38px]">
+    <main className="min-h-screen	px-[60px] py-[38px]">
       <Options />
       <SearchInfo quantity={228} />
       <hr className="my-12 bg-label" />
-      <div>
+      <div className="flex flex-wrap justify-between gap-y-12	">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
         <Card />
       </div>
     </main>
