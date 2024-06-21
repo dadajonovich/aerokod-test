@@ -24,6 +24,7 @@ export function Range(props: RangeProps) {
 
   const [min, setMin] = useState<string>(toFormat(11567));
   const [max, setMax] = useState<string>(toFormat(77666));
+
   const progressRef = useRef<HTMLDivElement>(null);
 
   const setRawMin = (value: string) => {
@@ -48,6 +49,7 @@ export function Range(props: RangeProps) {
     if (progressRef.current) {
       const minVal = getFloatFromValuePrice(min);
       const maxVal = getFloatFromValuePrice(max);
+
       progressRef.current.style.left = (minVal / 100000) * 100 + '%';
       progressRef.current.style.right = 100 - (maxVal / 100000) * 100 + '%';
     }
@@ -67,8 +69,8 @@ export function Range(props: RangeProps) {
             <IMaskInput
               mask={Number}
               style={{ width: min.length + 'ch' }}
-              // onAccept={setRawMin}
-              onBlur={handleMinChange}
+              // onAccept={setMin}
+              onBlur={(e) => setRawMin(e.target.value)}
               thousandsSeparator=" "
               value={min}
               min={0}
@@ -82,8 +84,8 @@ export function Range(props: RangeProps) {
             <IMaskInput
               mask={Number}
               style={{ width: max.length + 'ch' }}
-              // onAccept={setRawMax}
-              onBlur={handleMaxChange}
+              // onAccept={setMax}
+              onBlur={(e) => setRawMax(e.target.value)}
               thousandsSeparator=" "
               value={max}
               min={0}
